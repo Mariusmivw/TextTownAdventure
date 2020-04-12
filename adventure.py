@@ -5,6 +5,9 @@
 #  def __init__(self, name):
 #    #fucking bullshit
 
+def print_color(col, text, *args, **kwargs):
+	print('\033[38;2;'+str(col[0])+';'+str(col[1])+';'+str(col[2])+'m'+text +'\033[0m', *args, **kwargs)
+
 class Place:
 	actions = {}
 	needs = []
@@ -160,8 +163,12 @@ town.go = go_to
 
 current_place = town
 
-def parse(inp):
+def get_command():
 	global current_place
+
+	print_color((255, 255, 0), "test:", end=' ')
+	inp = input()
+
 	parts = inp.lower().split(" ", 1)
 	if parts[0] == 'leave':
 		print('You leave ' + current_place.name + ' and go back to the town')
@@ -169,11 +176,11 @@ def parse(inp):
 	if parts[0] in current_place.actions:
 		current_place.action(*parts)
 	else:
-		return None
+		print("Command not recognized")
 
 while True:
 	try:
-		parse(input("test: "))
+		get_command()
 	except KeyboardInterrupt:
 		print("")
 		break
