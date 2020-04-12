@@ -5,8 +5,13 @@
 #  def __init__(self, name):
 #    #fucking bullshit
 
-def print_color(col, text, *args, **kwargs):
-	print('\033[38;2;'+str(col[0])+';'+str(col[1])+';'+str(col[2])+'m'+text +'\033[0m', *args, **kwargs)
+
+def print_color(text, *args, fg=(), bg=(), **kwargs):
+	print(
+		(('\033[38;2;'+str(fg[0]) + ';' + str(fg[1]) + ';' + str(fg[2])) if type(fg) == tuple and len(fg) == 3 else '\033[39') + 'm' +
+		(('\033[48;2;'+str(bg[0]) + ';' + str(bg[1]) + ';' + str(bg[2])) if type(bg) == tuple and len(bg) == 3 else '\033[49') + 'm' +
+		text
+		+ '\033[0m', *args, **kwargs)
 
 class Place:
 	actions = {}
@@ -166,7 +171,7 @@ current_place = town
 def get_command():
 	global current_place
 
-	print_color((255, 255, 0), "test:", end=' ')
+	print_color("test:", fg=(255, 0, 0), bg=(0, 255, 255), end=' ')
 	inp = input()
 
 	parts = inp.lower().split(" ", 1)
