@@ -16,6 +16,7 @@ def print_color(text, *args, fg=(), bg=(), **kwargs):
 class Place:
 	actions = {}
 	needs = []
+	has = []
 	responses = {}
 	solved = ""
 	def __init__(self, name):
@@ -30,6 +31,10 @@ class Place:
 			return
 		if thing in self.actions["take"]:
 			v = self.actions["take"][thing]
+			if v != None:
+				for item in self.has:
+					if item in v:
+						v.remove(item)
 			if v == None or len(v) == 0:
 				self.actions["take"].remove(thing)
 				inventory.append(thing)
@@ -56,6 +61,7 @@ class Place:
 			if thing in self.actions["give"]:
 				inventory.remove(thing)
 				self.actions["give"].remove(thing)
+				self.has.append(thing)
 				print("Thanks for this " + thing)
 				if thing in self.needs:
 					self.needs.remove(thing)
