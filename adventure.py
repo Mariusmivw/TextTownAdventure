@@ -36,7 +36,7 @@ class Place:
 					if item in v:
 						v.remove(item)
 			if v == None or len(v) == 0:
-				self.actions["take"].remove(thing)
+				del self.actions["take"][thing]
 				inventory.append(thing)
 				print("You took " + thing)
 		else:
