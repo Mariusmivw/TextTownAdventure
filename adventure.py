@@ -62,6 +62,15 @@ class Place:
 				print("I don't need this")
 		else:
 			print("You don't have " + thing)
+	
+	def go(self, place):
+		global current_place, places
+		if place in places:
+			current_place = places[place]
+			print("You go to", end=' ')
+			print_color(places[place].name, fg=(60, 135, 255))
+		else:
+			print("There's no " + place + " here")
 
 inventory = []
 
@@ -156,15 +165,6 @@ places = {
 	"rinus": rinus,
 	"marius": marius
 }
-
-def go_to(place):
-	global current_place
-	if place in places:
-		current_place = places[place]
-		print("You go to " + places[place].name)
-	else:
-		print("There's no " + place + " here")
-town.go = go_to
 
 current_place = town
 
