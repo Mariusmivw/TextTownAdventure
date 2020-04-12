@@ -29,9 +29,11 @@ class Place:
 			print("You can't take " + self.name)
 			return
 		if thing in self.actions["take"]:
-			self.actions["take"].remove(thing)
-			inventory.append(thing)
-			print("You took " + thing)
+			v = self.actions["take"][thing]
+			if v == None or len(v) == 0:
+				self.actions["take"].remove(thing)
+				inventory.append(thing)
+				print("You took " + thing)
 		else:
 			print("There is no " + thing + " here")
 
@@ -76,7 +78,7 @@ inventory = []
 
 town = Place("the town")
 town.actions = {
-	"take": ["easter egg"],
+	"take": {"easter egg": None},
 	"go": None
 }
 
@@ -85,7 +87,7 @@ angela.actions = {
 	"talk": None,
 	"give": ["herb"],
 	"go": None,
-	"take": ["bread", "easter egg"]
+	"take": {"bread": None, "easter egg": None}
 }
 angela.responses = {
 	"problem": "Father sick (needs herbs)",
@@ -112,7 +114,7 @@ chris = Place("Chris")
 chris.actions = {
 	"talk": None,
 	"go": None,
-	"take": ["love letter"]
+	"take": {"love letter":None}
 }
 chris.responses = {
 	"problem": "Crush Diana",
@@ -123,14 +125,15 @@ diana = Place("Diana")
 diana.actions = {
 	"talk": None,
 	"give": ["bread", "love letter"],
-	"go": None
+	"go": None,
+	"take": {"love letter response": ["love letter"]}
 }
-diana.need = ["bread"]
 diana.responses = {
 	"problem": "Hungry no bread",
 	"job": "Cheesefarmer",
 	"chris": ""
 }
+diana.needs = ["bread"]
 
 rinus = Place("Rinus")
 rinus.actions = {
@@ -151,7 +154,7 @@ marius.talk = lambda *a: print("3.1415926535897932384626433832795028841971693993
 
 lake = Place("the lake")
 lake.actions = {
-	"take": ["herb"],
+	"take": {"herb": None},
 	"go": None
 }
 
