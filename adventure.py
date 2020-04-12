@@ -38,7 +38,7 @@ class Place:
 	def talk(self, subject):
 		if subject in self.responses:
 			print(self.responses[subject])
-			if subject in self.actions["talk"]:
+			if self.actions["talk"] != None and subject in self.actions["talk"]:
 				self.actions["talk"].remove(subject)
 				self.possibly_solved()
 		else:
