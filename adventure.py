@@ -93,6 +93,7 @@ angela.responses = {
 	"baker": "Not only bread also easter egg",
 	"sickness": "GO Bert"
 }
+angela.needs = ["herb"]
 angela.solved = "Not sick anymore thanks"
 
 bert = Place("Bert")
@@ -178,7 +179,7 @@ def get_command():
 	if parts[0] == 'leave':
 		print('You leave ' + current_place.name + ' and go back to the town')
 		current_place = town
-	if parts[0] in current_place.actions:
+	elif parts[0] in current_place.actions:
 		current_place.action(*parts)
 	else:
 		print("Command not recognized")
